@@ -4,8 +4,12 @@ const app = express();
 const cors = require('cors');
 const taskRoutes = require('./routes');
 const morgan = require('morgan');
+require('dotenv').config();
 
-mongoose.connect('mongodb+srv://ASAPJJ:Juanjo124@clusteripf.52hmhhu.mongodb.net/tareas', {
+const PORT = process.env.PORT || 4000
+const MONGO_URI = process.env.MONGO_URI
+
+mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -26,7 +30,6 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Error en el servidor' });
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor funcionando en el puerto ${PORT}`);
 });
